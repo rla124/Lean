@@ -5,22 +5,49 @@
 Use the `#check` command to give the type of each expression listed below.
 
 \(a\) `-2` \
+-2 : Int
+
 \(b\) `3.14` \
+3.14 : Float
+
 \(c\) `'L'` \
+'L' : Char
+
 \(d\) `"Lean"` \
+"Lean" : String
+
 \(e\) `[0, 1, 2]` \
-\(f\) `1 + 1 = 2`
+[0, 1, 2] : List Nat
+
+\(f\) `1 + 1 = 2` \
+1 + 1 = 2 : Prop
 
 ## Question 2
 
 Use the `#eval` command to give the value of each expression listed below.
 
 \(a\) `-3 / 5` \
+-1 \
+풀이 : Lean이 int에 대한 나눗셈 연산을 몫 연산(정수 나눗셈)으로 처리하기 때문에 -0.6에서 소수점 이하를 버린 결과
+
 \(b\) `Float.sin 0.0` \
+0.000000 \
+풀이 : sin(0) 결과를 Float 형식으로 반환
+
 \(c\) `Char.toNat 'L'` \
+76 \
+풀이 : 문자(Char)의 아스키 값을 toNat 자연수로 반환
+
 \(d\) `String.length "Lean"` \
+4
+
 \(e\) `List.tail [0, 1, 2]` \
-\(f\) `1.0 + 1.0 == 2.0`
+[1, 2] \
+풀이 : 리스트의 첫 번째 요소를 제거하고 나머지 반환
+
+\(f\) `1.0 + 1.0 == 2.0` \
+true \
+풀이 : #eval은 수식 계산뿐 아니라 비교 && 논리 연산 등 다양한 표현식에 대해 처리 가능
 
 ## Question 3
 
@@ -32,6 +59,16 @@ namespace Question03
 
 def f (x : Nat) := 2 * x - 1
 #eval f(1)
+
+end Question03
+```
+
+풀이 : Lean에서의 함수 호출 및 대입 방법
+```lean
+namespace Question03
+
+def f (x : Nat) := 2 * x - 1
+#eval f 1
 
 end Question03
 ```

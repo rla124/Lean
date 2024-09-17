@@ -77,10 +77,30 @@ end Question03
 
 Use the `def` keyword to declare a new constant of each type listed below.
 
-\(a\) `Bool → Bool` \
-\(b\) `(Bool → Bool) → Bool` \
-\(c\) `Bool → (Bool → Bool)` \
+\(a\) `Bool → Bool` 
+```lean
+def q04a : Bool -> Bool :=
+  fun x => x
+#eval q04a false
+```
+\(b\) `(Bool → Bool) → Bool` 
+```lean
+def q04b : (Bool -> Bool) → Bool :=
+  fun x : (Bool -> Bool) => x true
+#eval q04b (fun b => not b) 
+```
+\(c\) `Bool → (Bool → Bool)` 
+```lean
+def q04c : Bool → (Bool → Bool) :=
+  fun x1 => fun x2 => x1 && x2
+#eval q04c true false
+```
 \(d\) `Bool → Bool → Bool`
+```lean
+def q04d : Bool → Bool → Bool :=
+  fun x1 x2 => x1 || x2
+#eval q04d false true
+```
 
 ## Question 5
 

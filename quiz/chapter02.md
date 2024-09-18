@@ -28,7 +28,7 @@ Use the `#eval` command to give the value of each expression listed below.
 
 \(a\) `-3 / 5` \
 -1 \
-풀이 : Lean이 int에 대한 나눗셈 연산을 몫 연산(정수 나눗셈)으로 처리하기 때문에 -0.6에서 소수점 이하를 버린 결과
+풀이 : Lean이 int에 대한 나눗셈 연산을 몫 연산(정수 나눗셈)으로 처리 -> 몫 -1, 나머지 2(고의로 >=0)
 
 \(b\) `Float.sin 0.0` \
 0.000000 \
@@ -63,12 +63,12 @@ def f (x : Nat) := 2 * x - 1
 end Question03
 ```
 
-풀이 : Lean에서의 함수 호출 및 대입 방법
+풀이 : Lean에서의 함수 호출 및 대입 방법 -> f (1)도 동작, 스페이스의 중요성
 ```lean
 namespace Question03
 
 def f (x : Nat) := 2 * x - 1
-#eval f 1
+#eval f (1) -- f 1
 
 end Question03
 ```
@@ -80,19 +80,19 @@ Use the `def` keyword to declare a new constant of each type listed below.
 \(a\) `Bool → Bool` 
 ```lean
 def q04a : Bool -> Bool :=
-  fun x => x
+  fun x => x -- 항등 함수
 #eval q04a false
 ```
 \(b\) `(Bool → Bool) → Bool` 
 ```lean
 def q04b : (Bool -> Bool) → Bool :=
-  fun x : (Bool -> Bool) => x true
+  fun x : (Bool -> Bool) => x true -- 입력값 x가 함수(고차 함수) : apply x to true
 #eval q04b (fun b => not b) 
 ```
 \(c\) `Bool → (Bool → Bool)` 
 ```lean
 def q04c : Bool → (Bool → Bool) :=
-  fun x1 => fun x2 => x1 && x2
+  fun x1 => (fun x2 => x1 && x2) -- 괄호 
 #eval q04c true false
 ```
 \(d\) `Bool → Bool → Bool`
@@ -134,14 +134,14 @@ Give the value of each expression listed below.
 
 \(a\) `Nat.succ 0`
 ```lean
-#eval Nat.succ 0
+#eval Nat.succ 0 -- successor
 ```
 1 \
 풀이 : 주어진 자연수 Nat의 다음 자연수를 출력
 
 \(b\) `Nat.add 3 7`
 ```lean
-#eval Nat.add 3 7
+#eval Nat.add 3 7 -- vs Nat.pred
 ```
 10 \
 풀이 : Nat.add 두 자연수를 받아 덧셈 연산 수행
@@ -178,12 +178,12 @@ Bool × Bool : Type
 Let `Type.id` be a function from `Type` to `Type` defined as follows:
 
 ```lean
-def Type.id : Type → Type := fun x : Type ↦ x
+def Type.id : Type → Type := fun x : Type ↦ x -- identity
 ```
 
 Give the type of the expression `Type.id Nat`.
 
-Nat \
+Nat : Type 0 (Nat의 유형을 쓰는 것이 문제의 의도) \
 풀이 : Type.id는 어떤 타입을 입력으로 받아서 그대로 그 타입을 다시 반환하므로 자연수(Nat)이라는 입력 타입을 그대롭 출력
 
 ## Question 9
@@ -198,7 +198,8 @@ def α : Prod (Type 0) (Type 1) := (Nat, Type)
 
 \(b\) `Type 2 → Type 3`
 ```lean
-
+def q09d : Type 2 -> Type 3 :=
+  fun x : Type 2 => x
 ```
 
 ## Question 10
@@ -219,13 +220,42 @@ def g.{u, v, w} : Type u → Type v → Type w → Type (max u v w) :=
 end Question10
 ```
 
+```lean
+naemspace Question10
+
+-- f.{..} 표기 : 교제 2장 Types as Objects 참고
+
+def f.{u, v, w} : Type u -> Type v -> Type w -> Type (max u v w) :=
+  fun (A : Type u) (B : Type v) (C : Type w) => Prod (Prod A B) C
+
+def g.{u, v, w} : Type u -> Type v -> Type w -> Type (max u v w) := 
+  fun (A : Type u) (B : Type v) (C : Type w) => Prod A (Prod B C)
+
+-- Prod 이외에 함수 유형도 활용해보자 (=> 기호 활용)
+def g1.{u, v, w} : Type u -> Type v -> Type w -> Type (max u v w) := 
+  fun (x : Type u) => fun (y : Type v) => fun (z : Type w) => x -> y -> z
+  -- x가 정의역, y -> z가 공역 
+  -- x -> (y -> z)
+  -- 다변수 함수처럼 마치 x, y를 input으로 받는 이변수 함수라고 볼 수 있음(정의역이 두 개인 것처럼)
+
+end Question10
+```
+
 ## Question 11
 
 Is the function `Type.id` of [Question 8](#question-8) universe-polymorphic?
 
+풀이 : \
+유형에 세계 변수가 들어있는지를 묻는 문제 \
+세계 변수 없으므로 세계 다형적이 아니다 \
+(세계 다형적인지 아닌지를 볼 때는 세계 변수가 있느냐 없느냐로 판단) \
+(린에서 항등 함수 범용적으로는 세계 다형적이 맞지만,, u 변수를 넣어서 보면 다형적이라고 볼 수 있으므로) 
+
 ## Question 12
 
 Are the constants you defined in [Question 9](#question-9) universe-polymorphic?
+
+풀이 : 마찬가지로 세계 유형 변수가 없으므로 다형적이 아니다
 
 ## Question 13
 

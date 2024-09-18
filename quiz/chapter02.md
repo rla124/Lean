@@ -132,17 +132,46 @@ def q05d : Bool x Bool x Bool := (true, false, true)
 
 Give the value of each expression listed below.
 
-\(a\) `Nat.succ 0` \
-\(b\) `Nat.add 3 7` \
-\(c\) `('L', 4).1` \
-\(d\) `('L', 4).2`
+\(a\) `Nat.succ 0`
+```lean
+#eval Nat.succ 0
+```
+1 \
+풀이 : 주어진 자연수 Nat의 다음 자연수를 출력
+
+\(b\) `Nat.add 3 7`
+```lean
+#eval Nat.add 3 7
+```
+10 \
+풀이 : Nat.add 두 자연수를 받아 덧셈 연산 수행
+
+\(c\) `('L', 4).1` 
+```lean
+#eval ('L', 4).1
+```
+'L' \
+풀이 : 주어진 튜플에서 .1 첫 번째 요소를 반환
+
+\(d\) `('L', 4).2` \
+4 \
+풀이 : 튜플에서 .2 두 번째 인자를 반환
 
 ## Question 7
 
 Give the type of each expression listed below.
 
-\(a\) `Bool → Bool` \
+\(a\) `Bool → Bool` 
+```lean
+#check Bool -> Bool
+```
+Bool -> Bool : Type
+
 \(b\) `Bool × Bool`
+```lean
+#check Bool × Bool
+```
+Bool × Bool : Type
 
 ## Question 8
 
@@ -154,12 +183,23 @@ def Type.id : Type → Type := fun x : Type ↦ x
 
 Give the type of the expression `Type.id Nat`.
 
+Nat \
+풀이 : Type.id는 어떤 타입을 입력으로 받아서 그대로 그 타입을 다시 반환하므로 자연수(Nat)이라는 입력 타입을 그대롭 출력
+
 ## Question 9
 
 Define a constant of each type listed below.
 
-\(a\) `Prod (Type 0) (Type 1)` \
+\(a\) `Prod (Type 0) (Type 1)` 
+```lean
+def α : Prod (Type 0) (Type 1) := (Nat, Type)
+```
+풀이 : Nat, Bool 등은 Type에 속하고 Type은 Type 1에 속한다는 점을 이용
+
 \(b\) `Type 2 → Type 3`
+```lean
+
+```
 
 ## Question 10
 

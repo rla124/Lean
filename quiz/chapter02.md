@@ -104,12 +104,29 @@ def q04d : Bool → Bool → Bool :=
 
 ## Question 5
 
-Use the `def` keyword to declare a new constant of each type listed below.
+Use the `def` keyword to declare a new constant of each type listed below. \
+풀이 : 순서쌍
 
-\(a\) `Bool × Bool` \
-\(b\) `(Bool × Bool) × Bool` \
-\(c\) `Bool × (Bool × Bool)` \
+\(a\) `Bool × Bool` 
+```lean
+def q05a : Bool x Bool := (true, false)
+#eval q05a
+```
+\(b\) `(Bool × Bool) × Bool` 
+```lean
+def q05b : (Bool x Bool) x Bool := ((true, false), true)
+#eval q05b
+```
+\(c\) `Bool × (Bool × Bool)` 
+```lean
+def q05c : Bool x (Bool x Bool) := (true, (false, true))
+#eval q05c
+```
 \(d\) `Bool × Bool × Bool`
+```lean
+def q05d : Bool x Bool x Bool := (true, false, true)
+#eval q05d
+```
 
 ## Question 6
 

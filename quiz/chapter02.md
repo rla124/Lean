@@ -259,20 +259,30 @@ Are the constants you defined in [Question 9](#question-9) universe-polymorphic?
 
 ## Question 13
 
-Give the value of the expression `(λ x : Int => -x + 2) 3`.
+Give the value of the expression `(λ x : Int => -x + 2) 3`. \
+-1
+풀이 : 람다 함수의 함수에 값 3을 넣어 결과를 계산
 
 ## Question 14
 
 Define a function that takes a natural number as input and returns `true` if the
 number is non-zero and `false` if the number is zero.
+```lean
+def q14 (n : Nat) : Bool :=
+  if n=0 then false else true
+```
 
 ## Question 15
 
-Is the expression `fun x : Nat ↦ x` a *constant* function?
+Is the expression `fun x : Nat ↦ x` a *constant* function? \
+아니다 \
+풀이 : 상수 함수의 경우 공역이 특정한 상수 값을 나타내야 하는데 정의역에 어떤 수치가 주어질 경우 공역에서도 같은 값을 반환하므로 상수 함수가 아니라 항등 함수이다
 
 ## Question 16
 
-Is the expression `fun x : Nat ↦ 0` the *identity* function on `Nat`?
+Is the expression `fun x : Nat ↦ 0` the *identity* function on `Nat`? \
+아니다 \
+풀이 : 자연수 정의역이 무엇이든 공역이 0이므로 항등 함수가 아니라 상수 함수이다
 
 ## Question 17
 

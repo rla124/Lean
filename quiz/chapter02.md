@@ -293,6 +293,11 @@ expression *containing* the arguments `f`, `g`, and `s`.
 def q17 (f : List Char → Nat) (g : (List Char → Nat) → (String → Nat)) (s : String) : Nat :=
   sorry
 ```
+```lean
+def q17 (f : List Char → Nat) (g : (List Char → Nat) → (String → Nat)) (s : String) : Nat :=
+  g f s
+```
+풀이 : 함수 g에 함수 f를 적용해 String → Nat 타입의 함수를 반환하고 그 이후 s를 apply하여 Nat 값을 얻을 수 있다
 
 ## Question 18
 

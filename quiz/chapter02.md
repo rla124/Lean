@@ -306,6 +306,9 @@ Are the following functions alpha-equivalent?
 * `fun (s : String) (n : Nat) ↦ String.drop s n`
 * `fun (bulhwi : String) (cha : Nat) ↦ String.drop bulhwi cha`
 
+alpha-equivalent이다 \
+풀이 : 위 두 함수는 변수 이름만 다르고 모두 입력 문자열에서 입력 자연수만큼의 문자열을 제거하고 반환하는 로직은 동일하기 때문이다
+
 ## Question 19
 
 Which of the following functions are alpha-equivalent?
@@ -321,6 +324,8 @@ def h (a : Nat → Nat) (n : Nat) := Question19.a (a n)
 
 end Question19
 ```
+f와 g가 알파 동치이다 \
+풀이 : f와 g 모두 Nat을 입력받아 이 자연수를 처리하는 함수의 이름만 다를 뿐 최종 반환 과정이 동일하고 그이외의 함수는 로직이 다르다
 
 ## Question 20
 
@@ -328,6 +333,11 @@ Define a function that takes two natural numbers as input arguments and returns
 the one less than or equal to the other.
 
 Note that you can type the less-than-or-equal-to sign `≤` with `\le`.
+```lean
+def q20 (x1 : Nat) (x2 : Nat) : Nat :=
+  if x1 ≤ x2 then x1 else x2
+#eval q20 12 13 
+```
 
 ## Question 21
 

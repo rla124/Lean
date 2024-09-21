@@ -5,3 +5,8 @@
 def q14 (n : Nat) : Bool :=
   if n=0 then false else true
 #eval q14 1 -- true
+
+-- Question 20
+def q20 (x1 : Nat) (x2 : Nat) : Nat :=
+  if x1 ≤ x2 then x1 else x2
+#eval q20 12 13 -- 12

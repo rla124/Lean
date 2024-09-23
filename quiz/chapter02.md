@@ -1,5 +1,4 @@
 # Chapter 2 Quiz
-
 ## Question 1
 
 Use the `#check` command to give the type of each expression listed below.
@@ -241,6 +240,20 @@ def g1.{u, v, w} : Type u -> Type v -> Type w -> Type (max u v w) :=
 end Question10
 ```
 
+```lean
+def h : Nat -> String -> Char :=
+  fun (x : Nat) => fun (y : String) := 'A'
+
+-- <유형을 만드는 방법 (두 가지 유형을 받아 새로운 유형을 만드는 방법)> : 곱 유형, 함수 유형
+
+-- 함수 유형 : 알파라는 유형과 베타라는 유형이 있을 때 함수 유형을 어떻게 만들까?
+-- 화살표 유형 ->을 이용한다 : A -> B -> C
+
+-- 곱 유형 : 데카르트 곱 
+-- 순서쌍 
+-- 곱 기호를 이용한다 : A x B x C
+```
+
 ## Question 11
 
 Is the function `Type.id` of [Question 8](#question-8) universe-polymorphic?
@@ -269,7 +282,9 @@ Define a function that takes a natural number as input and returns `true` if the
 number is non-zero and `false` if the number is zero.
 ```lean
 def q14 (n : Nat) : Bool :=
-  if n=0 then false else true
+  if n=0 then false else true -- 등호 == 2번 가능
+  -- = -> x : Nat
+  -- == -> x : Prop
 ```
 
 ## Question 15
@@ -350,7 +365,9 @@ def foo := let a := Nat; fun x : a => x + 2
   def bar := (fun a => fun x : a => x + 2) Nat
 -/
 ```
-
+풀이 : \
+foo의 경우 +2 연산 전에 a가 Nat 유형으로 정해져있어서 자연수 연산이 가능했지만 \
+bar의 경우 a가 타입 변수로 선언되어 어떤 타입인지 명확하지 않으므로 +2 연산 이후에 Nat임을 밝히기 때문에 bar에서 타입 체크 오류가 뜬다 
 ## Question 22
 
 Use the `#print` command to check the definitions of the following functions:

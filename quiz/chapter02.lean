@@ -10,3 +10,7 @@ def q14 (n : Nat) : Bool :=
 def q20 (x1 : Nat) (x2 : Nat) : Nat :=
   if x1 ≤ x2 then x1 else x2
 #eval q20 12 13 -- 12
+
+-- Question 21
+def foo := let a := Nat; fun x : a => x + 2
+-- def bar := (fun a => fun x : a => x + 2) Nat

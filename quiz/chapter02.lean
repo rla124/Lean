@@ -14,3 +14,20 @@ def q20 (x1 : Nat) (x2 : Nat) : Nat :=
 -- Question 21
 def foo := let a := Nat; fun x : a => x + 2
 -- def bar := (fun a => fun x : a => x + 2) Nat
+
+-- Question 22
+namespace Question22
+
+variable (α β γ : Type)
+variable (g : β → γ) (f : α → β) (h : α → α)
+variable (x : α)
+
+def compose := g (f x)
+def doTwice := h (h x)
+def doThrice := h (h (h x))
+
+#print compose
+#print doTwice
+#print doThrice
+
+end Question22

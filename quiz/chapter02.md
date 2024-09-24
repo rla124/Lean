@@ -385,6 +385,7 @@ def doThrice := h (h (h x))
 
 end Question22
 ```
+chapter02.lean 파일에서 확인
 
 ## Question 23
 

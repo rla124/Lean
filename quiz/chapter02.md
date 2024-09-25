@@ -182,8 +182,8 @@ def Type.id : Type → Type := fun x : Type ↦ x -- identity
 
 Give the type of the expression `Type.id Nat`.
 
-Nat : Type 0 (Nat의 유형을 쓰는 것이 문제의 의도) \
-풀이 : Type.id는 어떤 타입을 입력으로 받아서 그대로 그 타입을 다시 반환하므로 자연수(Nat)이라는 입력 타입을 그대롭 출력
+Type.id Nat : Type 0 (Type.id Nat의 유형을 쓰는 것이 문제의 의도) \
+풀이 : Type.id는 어떤 타입을 입력으로 받아서 그대로 그 타입을 다시 반환하므로 자연수(Nat)이라는 입력 타입을 그대로 출력함. 따라서 그 출력값의 유형은 Type.
 
 ## Question 9
 
@@ -233,9 +233,8 @@ def g.{u, v, w} : Type u -> Type v -> Type w -> Type (max u v w) :=
 -- Prod 이외에 함수 유형도 활용해보자 (=> 기호 활용)
 def g1.{u, v, w} : Type u -> Type v -> Type w -> Type (max u v w) := 
   fun (x : Type u) => fun (y : Type v) => fun (z : Type w) => x -> y -> z
-  -- x가 정의역, y -> z가 공역 
-  -- x -> (y -> z)
-  -- 다변수 함수처럼 마치 x, y를 input으로 받는 이변수 함수라고 볼 수 있음(정의역이 두 개인 것처럼)
+  -- 함수 유형 x -> (y -> z): x가 정의역, y -> z가 공역
+  -- 함수 g1: 다변수 함수처럼 마치 x, y를 input으로 받는 이변수 함수라고 볼 수 있음(정의역이 두 개인 것처럼)
 
 end Question10
 ```
@@ -246,7 +245,7 @@ def h : Nat -> String -> Char :=
 
 -- <유형을 만드는 방법 (두 가지 유형을 받아 새로운 유형을 만드는 방법)> : 곱 유형, 함수 유형
 
--- 함수 유형 : 알파라는 유형과 베타라는 유형이 있을 때 함수 유형을 어떻게 만들까?
+-- 함수 유형 : 유형들이 주어져 있을 때 이것들로 함수 유형을 어떻게 만들까?
 -- 화살표 유형 ->을 이용한다 : A -> B -> C
 
 -- 곱 유형 : 데카르트 곱 
@@ -262,7 +261,7 @@ Is the function `Type.id` of [Question 8](#question-8) universe-polymorphic?
 유형에 세계 변수가 들어있는지를 묻는 문제 \
 세계 변수 없으므로 세계 다형적이 아니다 \
 (세계 다형적인지 아닌지를 볼 때는 세계 변수가 있느냐 없느냐로 판단) \
-(린에서 항등 함수 범용적으로는 세계 다형적이 맞지만,, u 변수를 넣어서 보면 다형적이라고 볼 수 있으므로) 
+(린의 핵심 라이브러리에 있는 항등 함수 id는 세계 다형적임)
 
 ## Question 12
 
@@ -274,7 +273,7 @@ Are the constants you defined in [Question 9](#question-9) universe-polymorphic?
 
 Give the value of the expression `(λ x : Int => -x + 2) 3`. \
 -1
-풀이 : 람다 함수의 함수에 값 3을 넣어 결과를 계산
+풀이 : 람다 함수의 함숫값을 나타내는 식 -x + 2에서 변수 x에 3을 대입해 결과를 계산
 
 ## Question 14
 
@@ -283,21 +282,21 @@ number is non-zero and `false` if the number is zero.
 ```lean
 def q14 (n : Nat) : Bool :=
   if n=0 then false else true -- 등호 == 2번 가능
-  -- = -> x : Nat
-  -- == -> x : Prop
+  -- a = b  : Prop
+  -- a == b : Bool
 ```
 
 ## Question 15
 
 Is the expression `fun x : Nat ↦ x` a *constant* function? \
 아니다 \
-풀이 : 상수 함수의 경우 공역이 특정한 상수 값을 나타내야 하는데 정의역에 어떤 수치가 주어질 경우 공역에서도 같은 값을 반환하므로 상수 함수가 아니라 항등 함수이다
+풀이 : 상수 함수의 경우 함숫값이 특정한 상수여야 하는데, 이 함수는 입력값과 같은 값을 반환하므로 상수 함수가 아니라 항등 함수이다
 
 ## Question 16
 
 Is the expression `fun x : Nat ↦ 0` the *identity* function on `Nat`? \
 아니다 \
-풀이 : 자연수 정의역이 무엇이든 공역이 0이므로 항등 함수가 아니라 상수 함수이다
+풀이 : 입력값(정의역 원소)이 무엇이든 함숫값이 0이므로 항등 함수가 아니라 상수 함수이다
 
 ## Question 17
 
@@ -312,7 +311,7 @@ def q17 (f : List Char → Nat) (g : (List Char → Nat) → (String → Nat)) (
 def q17 (f : List Char → Nat) (g : (List Char → Nat) → (String → Nat)) (s : String) : Nat :=
   g f s
 ```
-풀이 : 함수 g에 함수 f를 적용해 String → Nat 타입의 함수를 반환하고 그 이후 s를 apply하여 Nat 값을 얻을 수 있다
+풀이 : 함수 f에 함수 g를 적용해 String → Nat 타입의 함수를 구성한 다음, 그 함수를 s에 적용해 Nat 값을 얻을 수 있다
 
 ## Question 18
 

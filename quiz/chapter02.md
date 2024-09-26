@@ -415,9 +415,17 @@ end Question23
 
 Give the value and type of each expression listed below.
 
+풀이 : List.cons는 주어진 값(첫 번째 인자)을 리스트(두 번째 인자)의 0번째 index 위치에 추가
+
 \(a\) `List.cons 0 [1, 2, 3]` \
+[0, 1, 2, 3] : List Nat 
+
 \(b\) `List.cons true []` \
-\(c\) `List.cons "Lean" ["4"]`
+[true] : List Bool \
+빈 리스트의 타입이 자동으로 List Bool이 된다 
+
+\(c\) `List.cons "Lean" ["4"]` \
+["Lean", "4"] : List String
 
 ## Question 25
 

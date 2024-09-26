@@ -31,3 +31,16 @@ def doThrice := h (h (h x))
 #print doThrice
 
 end Question22
+
+-- Question 24
+-- (a) List.cons 0 [1, 2, 3]
+#eval List.cons 0 [1, 2, 3]
+#check List.cons 0 [1, 2, 3]
+
+-- (b) List.cons true []
+#eval List.cons true []
+#check List.cons true []
+
+-- (c) List.cons "Lean" ["4"]
+#eval List.cons "Lean" ["4"]
+#check List.cons "Lean" ["4"]

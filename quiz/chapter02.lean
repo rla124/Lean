@@ -44,3 +44,12 @@ end Question22
 -- (c) List.cons "Lean" ["4"]
 #eval List.cons "Lean" ["4"]
 #check List.cons "Lean" ["4"]
+
+-- Question 25
+#print List.cons
+
+-- Question 26
+def Type.id : Type → Type := fun x : Type ↦ x
+#check Type.id Bool
+#check Type.id String
+#check Type.id Char

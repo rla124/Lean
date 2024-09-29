@@ -433,34 +433,65 @@ Use the `print` command to check the type of the function `List.cons`, then
 answer by true or false each of the following statements about the function.
 
 \(a\) It is universe-polymorphic. \
+풀이 : true / 세계 타입 변수 u에 대해 일반화가 가능하므로 세계 다형적이다
+
 \(b\) It is parametrically polymorphic. \
+풀이 : true / List.cons는 {α : Type u}라는 암묵적 인자를 받아 α에 대해 일반화가 되어있으므로 매개변수 다형적이다
+
 \(c\) It is a dependent function. \
-\(d\) It has a dependent function type.
+풀이 : false / 입력에 따라 결과 티입이 바뀌지 않으므로 의존 함수가 아니다 
+
+\(d\) It has a dependent function type. \
+풀이 : false / 인자 α는 종속적이지 않고 파라메트릭하게 사용되므로 함수의 결과 타입이 인자에 의존하지 않는다
 
 ## Question 26
 
 Answer by true or false each of the following statements about the function
 `Type.id` of [Question 8](#question-8).
+```lean
+def Type.id : Type → Type := fun x : Type ↦ x
+```
 
 \(a\) It is parametrically polymorphic. \
+풀이 : true / 여러 타입에 대해 같은 방식으로 동작한다 Type.id에 Nat, Bool, String, Char 유형 등을 매개변수로 넘겼을 때 속한 타입을 반환하는 동일한 로직을 수행한다 이는 입력 인자에 독립적으로 처리한다고 볼 수 있으므로 매개변수 다형성을 가지고 있다 
+
 \(b\) It is a dependent function. \
-\(c\) It has a dependent function type.
+풀이 : false / Type.id는 Type 0에 속하는 x가 무엇이든 항상 Type을 반환하므로 결과 타입이 입력값에 의존하지 않기 때문이다
+
+\(c\) It has a dependent function type. \
+풀이 : false / 항상 Type -> Type이므로 의존 함수 타입이 아니다
 
 ## Question 27
 
 Answer by true or false each of the following statements about the constants you
 defined in [Question 9](#question-9).
+```lean
+def α : Prod (Type 0) (Type 1) := (Nat, Type)
+
+def q09d : Type 2 → Type 3 := fun x : Type 2 => x
+```
 
 \(a\) At least one of them is parametrically polymorphic. \
+풀이 : true / q09d는 Type 2를 받아서 그대로 반환하므로 Type 2의 임의의 타입을 받아서 그 타입에 관계 없이 동일하게 입력값을 그대로 반환하는 로직을 처리하기 때문에 매개변수 다형성을 갖고 있다
+
 \(b\) At least one of them is a dependent function. \
+풀이 : false / α는 단순 순서쌍을 반환하고 q09d는 입력 타입을 그대로 return하므로 결과 타입이 입력 값에 따라 변하지 않고 항상 Type 3에 속하는 타입을 반환하기 때문이다
+
 \(c\) At least one of them has a dependent function type. \
+풀이 : false / 반환 타입이 인자에 의존하지 않기 때문이다
+
 \(d\) At least one of them is a dependent product. \
-\(e\) At least one of them has a dependent product type.
+풀이 : false / 입력 값에 따라 출력 타입이 달라지는 쌍이 아니라 α는 타입 간의 단순한 쌍을 반환하기 때문이다
+
+\(e\) At least one of them has a dependent product type. \
+풀이 : false / α는 단순히 고정된 두 타입 간의 쌍을 생성하는 것이기 때문이다
 
 ## Question 28
 
 Is the type `(α : Type) → (β : α → Type) → (a : α) → β a` a dependent function
-type?
+type? \
+풀이 : yes / 처음에는 α 타입에 속하는 입력 a에 관계 없이 항상 Type을 반환하므로 의존 함수가 아니라고 생각했으나 타입 β a는 입력 a에 의존하므로 의존함수이다 \
+예를 들어 α가 Nat이고 β가 fun (n : Nat) => List n이라고 해보면 a가 3일 때 β a는 List 3 타입이 되고 a가 5라면 List 5 타입이 되므로 입력값 a가 달라지면 결과 β a 타입도 달라지므로 의존 함수라고 판단했다
 
 ## Question 29
 

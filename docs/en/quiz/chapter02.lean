@@ -53,3 +53,18 @@ def Type.id : Type → Type := fun x : Type ↦ x
 #check Type.id Bool
 #check Type.id String
 #check Type.id Char
+
+-- Question 35
+
+
+-- Question 36
+-- 아래는 check, eval의 결과를 주석에 혼합
+#check @List.nil Nat -- [] : List Nat
+#check List.append [0, 1] [2, 3] -- [0, 1].append [2, 3] == [0, 1, 2, 3] : List Nat
+
+-- Question 37
+-- 아래는 check와 eval의 결과 혼합
+#check @List.cons _ 0 [1, 2, 3] -- [0, 1, 2, 3] : List Nat
+#check @List.append _ [0, 1] [2, 3] -- [0, 1].append [2, 3] : List Nat
+#check @List.cons _ "Lean" ["4"] -- ["Lean", "4"] : List String
+#check @List.append _ ["Lean"] ["4"] -- ["Lean"].append ["4"] : List String

@@ -496,24 +496,36 @@ function type? \
 ## Question 29
 
 Given `α : Type` and `β : α → Type`, is the type `(a : α) × β a` a dependent
-product type?
+product type? \
+풀이 : yes / 첫 번째 값 a에 따라 두 번째 요소의 타입이 달라지기 때문이다 \
+예를 들어 아래의 코드와 같이 α, β를 정의했을 경우 a의 짝홀수 여부에 따라 데카르트 곱을 한 결과의 타입이 달라지는 것을 통해서 확인할 수 있다
+```lean
+def α : Type := Nat
+
+def β : α → Type :=
+  fun a => if a % 2 = 0 then Bool else String
+```
 
 ## Question 30
 
-Given `α : Type` and `β : α → Type`, is the type `Σ (a : α), β a` a sigma type?
+Given `α : Type` and `β : α → Type`, is the type `Σ (a : α), β a` a sigma type? \
+풀이 : yes / 첫 번째 값 a : α에 따라 두 번째 β a 반환 타입이 달라지므로 시그마 타입 == 의존적 함수 타입이다
 
 ## Question 31
 
 Are the types of [Question 29](#question-29) and [Question 30](#question-30) the
-same?
+same? \
+풀이 : no / 전자의 경우 의존적 곱 타입으로 값이 고장된 쌍이지만 후자는 시그마 타입으로 더 범용적인 범위에서 의존적 곱과 의존적 합 타입을 포괄하는 표현이기 때문이다
 
 ## Question 32
 
-Is the type `(α : Type) → Prop` a dependent function type?
+Is the type `(α : Type) → Prop` a dependent function type? \
+풀이 : no / 출력이 입력 값에 따라 *다른 타입*인 것이 아니라 어떤 α가 주어지더라도 반환되는 타입은 항상 Prop으로 동일하기 때문에 의존 함수 타입이 아니다 
 
 ## Question 33
 
-Is the type `(α : Type) × Prop` a dependent product type?
+Is the type `(α : Type) × Prop` a dependent product type? \
+풀이 : no / 첫 번째 요소에 따라 두 번째 요소의 타입이 달라지는 것이 아니라 첫 번째 요소는 α : Type이고 두 번째 요소는 항상 Prop이므로 의존 곱 타입이 아니다
 
 ## Question 34
 
@@ -530,6 +542,20 @@ def f (α : Type u) (β : α → Type v) (a : α) (b : β a) : (a : α) × β a 
 
 end Question34
 ```
+풀이 : 함수 f는 의존적 곱을 반환하는 함수여야 하지만 현재 위 코드에서는 의존적 곱이 아닌 데카르트 곱으로 표현되었기 때문
+
+```lean
+namespace Question34
+
+universe u v
+
+-- 반환 타입을 sigma (a : α), β a로 변경
+def f (α : Type u) (β : α → Type v) (a : α) (b : β a) : Σ (a : α), β a :=
+  ⟨a, b⟩  -- sigma 타입의 값을 생성할 때 ⟨a, b⟩ 형식 사용
+
+end Question34
+
+```
 
 ## Question 35
 
@@ -537,14 +563,20 @@ Give the value of each of the following expressions, where `f` is the function
 defined in [Question 34](#question-34).
 
 \(a\) `(f Nat (fun _n => Int) 1 (-1)).1` \
-\(b\) `(f Nat (fun _n => Int) 1 (-1)).2`
+1
+
+\(b\) `(f Nat (fun _n => Int) 1 (-1)).2` \
+-1
 
 ## Question 36
 
 Give the value and type of each expression listed below.
 
 \(a\) `@List.nil Nat` \
-\(b\) `List.append [0, 1] [2, 3]`
+[] : List Nat
+
+\(b\) `List.append [0, 1] [2, 3]` \
+[0, 1, 2, 3] : List Nat
 
 ## Question 37
 
@@ -552,10 +584,20 @@ Replace the underscore in each expression listed below with an appropriate type,
 then check the value of each expression.
 
 \(a\) `@List.cons _ 0 [1, 2, 3]` \
+[0, 1, 2, 3] : List Nat
+
 \(b\) `@List.append _ [0, 1] [2, 3]` \
+[0, 1, 2, 3] : List Nat
+
 \(c\) `@List.cons _ "Lean" ["4"]` \
+["Lean", "4"] : List String
+
 \(d\) `@List.append _ ["Lean"] ["4"]`
+["Lean", "4"] : List String
 
 ## Question 38
 
 Give an example of a function that takes one or more implicit arguments.
+```lean
+def List.cons {α : Type u} (a : α) (as : List α)
+```

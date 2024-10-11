@@ -198,7 +198,7 @@ def α : Prod (Type 0) (Type 1) := (Nat, Type)
 \(b\) `Type 2 → Type 3`
 ```lean
 def q09d : Type 2 -> Type 3 :=
-  fun x : Type 2 => x
+  fun x : Type 2 => x -> Type 2
 ```
 
 ## Question 10
@@ -475,7 +475,7 @@ def q09d : Type 2 → Type 3 := fun x : Type 2 => x
 풀이 : true / q09d는 Type 2를 받아서 그대로 반환하므로 Type 2의 임의의 타입을 받아서 그 타입에 관계 없이 동일하게 입력값을 그대로 반환하는 로직을 처리하기 때문에 매개변수 다형성을 갖고 있다
 
 \(b\) At least one of them is a dependent function. \
-풀이 : false / α는 단순 순서쌍을 반환하고 q09d는 입력 타입을 그대로 return하므로 결과 타입이 입력 값에 따라 변하지 않고 항상 Type 3에 속하는 타입을 반환하기 때문이다
+풀이 : false / α는 단순 순서쌍이고 q09d는 결과 타입이 입력 값에 따라 변하지 않고 항상 Type 3에 속하는 타입을 반환하기 때문이다
 
 \(c\) At least one of them has a dependent function type. \
 풀이 : false / 반환 타입이 인자에 의존하지 않기 때문이다

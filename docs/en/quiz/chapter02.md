@@ -525,7 +525,7 @@ end Question29
 ## Question 30
 
 Given `α : Type` and `β : α → Type`, is the type `Σ (a : α), β a` a sigma type? \
-풀이 : yes / 첫 번째 값 a : α에 따라 두 번째 β a 반환 타입이 달라지므로 시그마 타입 == 의존적 함수 타입이다
+풀이 : yes / 첫 번째 값 a : α에 따라 두 번째 β a 반환 타입이 달라지므로 시그마 타입 == 의존곱 타입이다
 
 ## Question 31
 

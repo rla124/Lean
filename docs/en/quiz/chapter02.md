@@ -536,12 +536,12 @@ same? \
 ## Question 32
 
 Is the type `(α : Type) → Prop` a dependent function type? \
-풀이 : no / 출력이 입력 값에 따라 *다른 타입*인 것이 아니라 어떤 α가 주어지더라도 반환되는 타입은 항상 Prop으로 동일하기 때문에 의존 함수 타입이 아니다 
+풀이 : no / 출력이 입력 값에 따라 *다른 타입*인 것이 아니라 어떤 α가 주어지더라도 그 타입은 항상 Prop으로 동일하기 때문에 의존 함수 타입이 아니다
 
 ## Question 33
 
 Is the type `(α : Type) × Prop` a dependent product type? \
-풀이 : no / 첫 번째 요소에 따라 두 번째 요소의 타입이 달라지는 것이 아니라 첫 번째 요소는 α : Type이고 두 번째 요소는 항상 Prop이므로 의존 곱 타입이 아니다
+풀이 : no / 첫 번째 요소에 따라 두 번째 요소의 타입이 달라지는 것이 아니라 첫 번째 요소는 α : Type이고 두 번째 요소는 항상 Prop에 속하므로 의존 곱 타입이 아니다
 
 ## Question 34
 
@@ -570,7 +570,6 @@ def f (α : Type u) (β : α → Type v) (a : α) (b : β a) : Σ (a : α), β a
   ⟨a, b⟩  -- sigma 타입의 값을 생성할 때 ⟨a, b⟩ 형식 사용
 
 end Question34
-
 ```
 
 ## Question 35

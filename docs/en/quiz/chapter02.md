@@ -366,7 +366,7 @@ def foo := let a := Nat; fun x : a => x + 2
 ```
 풀이 : \
 foo의 경우 +2 연산 전에 a가 Nat 유형으로 정해져있어서 자연수 연산이 가능했지만 \
-bar의 경우 a가 타입 변수로 선언되어 어떤 타입인지 명확하지 않으므로 +2 연산 이후에 Nat임을 밝히기 때문에 bar에서 타입 체크 오류가 뜬다 
+bar의 경우 a가 타입 변수로 선언되어 어떤 타입인지 명확하지 않으므로 bar에서 타입 체크 오류가 뜬다
 ## Question 22
 
 Use the `#print` command to check each definition of the following functions:
@@ -436,10 +436,10 @@ answer by true or false each of the following statements about the function.
 풀이 : true / 세계 타입 변수 u에 대해 일반화가 가능하므로 세계 다형적이다
 
 \(b\) It is parametrically polymorphic. \
-풀이 : true / List.cons는 {α : Type u}라는 암묵적 인자를 받아 α에 대해 일반화가 되어있으므로 매개변수 다형적이다
+풀이 : true / List.cons는 {α : Type u}라는 암묵적 인자의 값에 따라 그 유형이 바뀌므로 매개변수 다형적이다
 
 \(c\) It is a dependent function. \
-풀이 : false / 입력에 따라 결과 티입이 바뀌지 않으므로 의존 함수가 아니다 
+풀이 : false / 입력에 따라 결과 타입이 바뀌지 않으므로 의존 함수가 아니다
 
 \(d\) It has a dependent function type. \
 풀이 : false / 인자 α는 종속적이지 않고 파라메트릭하게 사용되므로 함수의 결과 타입이 인자에 의존하지 않는다
@@ -456,10 +456,10 @@ def Type.id : Type → Type := fun x : Type ↦ x
 풀이 : true / 여러 타입에 대해 같은 방식으로 동작한다 Type.id에 Nat, Bool, String, Char 유형 등을 매개변수로 넘겼을 때 속한 타입을 반환하는 동일한 로직을 수행한다 이는 입력 인자에 독립적으로 처리한다고 볼 수 있으므로 매개변수 다형성을 가지고 있다 
 
 \(b\) It is a dependent function. \
-풀이 : false / Type.id는 Type 0에 속하는 x가 무엇이든 항상 Type을 반환하므로 결과 타입이 입력값에 의존하지 않기 때문이다
+풀이 : false / Type.id는 Type 0에 속하는 x가 무엇이든 그 타입이 입력값에 의존하지 않기 때문이다
 
 \(c\) It has a dependent function type. \
-풀이 : false / 항상 Type -> Type이므로 의존 함수 타입이 아니다
+풀이 : false / 유형이 항상 Type -> Type이므로 의존 함수 타입이 아니다
 
 ## Question 27
 

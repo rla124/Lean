@@ -500,10 +500,26 @@ product type? \
 풀이 : yes / 첫 번째 값 a에 따라 두 번째 요소의 타입이 달라지기 때문이다 \
 예를 들어 아래의 코드와 같이 α, β를 정의했을 경우 a의 짝홀수 여부에 따라 데카르트 곱을 한 결과의 타입이 달라지는 것을 통해서 확인할 수 있다
 ```lean
+namespace Question29
+
 def α : Type := Nat
 
+namespace α
+
+instance instOfNat : OfNat α n where
+  ofNat := n
+
+instance : HMod α Nat Nat where
+  hMod := Nat.mod
+
+end α
+
 def β : α → Type :=
-  fun a => if a % 2 = 0 then Bool else String
+  fun a => if a % 2 = (0 : Nat) then Bool else String
+
+#check (a : α) × β a -- output: Type
+
+end Question29
 ```
 
 ## Question 30

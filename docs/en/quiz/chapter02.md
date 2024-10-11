@@ -491,7 +491,7 @@ def q09d : Type 2 → Type 3 := fun x : Type 2 => x
 Given `α : Type` and `β : α → Type`, is the type `(a : α) → β a` a dependent
 function type? \
 풀이 : yes / 처음에는 α 타입에 속하는 입력 a에 관계 없이 항상 Type을 반환하므로 의존 함수가 아니라고 생각했으나 타입 β a는 입력 a에 의존하므로 의존함수이다 \
-예를 들어 α가 Nat이고 β가 fun (n : Nat) => List n이라고 해보면 a가 3일 때 β a는 List 3 타입이 되고 a가 5라면 List 5 타입이 되므로 입력값 a가 달라지면 결과 β a 타입도 달라지므로 의존 함수라고 판단했다
+예를 들어 α가 Nat이고 β가 fun (n : Nat) => Fin n이라고 해보면 a가 3일 때 β a는 Fin 3 타입이 되고 a가 5라면 Fin 5 타입이 되므로 입력값 a가 달라지면 결과 β a 타입도 달라지므로 의존 함수라고 판단했다
 
 ## Question 29
 

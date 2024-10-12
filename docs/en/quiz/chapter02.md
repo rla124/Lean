@@ -198,7 +198,7 @@ def α : Prod (Type 0) (Type 1) := (Nat, Type)
 \(b\) `Type 2 → Type 3`
 ```lean
 def q09d : Type 2 -> Type 3 :=
-  fun x : Type 2 => x
+  fun x : Type 2 => x -> Type 2
 ```
 
 ## Question 10
@@ -366,7 +366,7 @@ def foo := let a := Nat; fun x : a => x + 2
 ```
 풀이 : \
 foo의 경우 +2 연산 전에 a가 Nat 유형으로 정해져있어서 자연수 연산이 가능했지만 \
-bar의 경우 a가 타입 변수로 선언되어 어떤 타입인지 명확하지 않으므로 +2 연산 이후에 Nat임을 밝히기 때문에 bar에서 타입 체크 오류가 뜬다 
+bar의 경우 a가 타입 변수로 선언되어 어떤 타입인지 명확하지 않으므로 bar에서 타입 체크 오류가 뜬다
 ## Question 22
 
 Use the `#print` command to check each definition of the following functions:
@@ -436,10 +436,10 @@ answer by true or false each of the following statements about the function.
 풀이 : true / 세계 타입 변수 u에 대해 일반화가 가능하므로 세계 다형적이다
 
 \(b\) It is parametrically polymorphic. \
-풀이 : true / List.cons는 {α : Type u}라는 암묵적 인자를 받아 α에 대해 일반화가 되어있으므로 매개변수 다형적이다
+풀이 : true / List.cons는 {α : Type u}라는 암묵적 인자의 값에 따라 그 유형이 바뀌므로 매개변수 다형적이다
 
 \(c\) It is a dependent function. \
-풀이 : false / 입력에 따라 결과 티입이 바뀌지 않으므로 의존 함수가 아니다 
+풀이 : false / 입력에 따라 결과 타입이 바뀌지 않으므로 의존 함수가 아니다
 
 \(d\) It has a dependent function type. \
 풀이 : false / 인자 α는 종속적이지 않고 파라메트릭하게 사용되므로 함수의 결과 타입이 인자에 의존하지 않는다
@@ -456,10 +456,10 @@ def Type.id : Type → Type := fun x : Type ↦ x
 풀이 : true / 여러 타입에 대해 같은 방식으로 동작한다 Type.id에 Nat, Bool, String, Char 유형 등을 매개변수로 넘겼을 때 속한 타입을 반환하는 동일한 로직을 수행한다 이는 입력 인자에 독립적으로 처리한다고 볼 수 있으므로 매개변수 다형성을 가지고 있다 
 
 \(b\) It is a dependent function. \
-풀이 : false / Type.id는 Type 0에 속하는 x가 무엇이든 항상 Type을 반환하므로 결과 타입이 입력값에 의존하지 않기 때문이다
+풀이 : false / Type.id는 Type 0에 속하는 x가 무엇이든 그 타입이 입력값에 의존하지 않기 때문이다
 
 \(c\) It has a dependent function type. \
-풀이 : false / 항상 Type -> Type이므로 의존 함수 타입이 아니다
+풀이 : false / 유형이 항상 Type -> Type이므로 의존 함수 타입이 아니다
 
 ## Question 27
 
@@ -475,7 +475,7 @@ def q09d : Type 2 → Type 3 := fun x : Type 2 => x
 풀이 : true / q09d는 Type 2를 받아서 그대로 반환하므로 Type 2의 임의의 타입을 받아서 그 타입에 관계 없이 동일하게 입력값을 그대로 반환하는 로직을 처리하기 때문에 매개변수 다형성을 갖고 있다
 
 \(b\) At least one of them is a dependent function. \
-풀이 : false / α는 단순 순서쌍을 반환하고 q09d는 입력 타입을 그대로 return하므로 결과 타입이 입력 값에 따라 변하지 않고 항상 Type 3에 속하는 타입을 반환하기 때문이다
+풀이 : false / α는 단순 순서쌍이고 q09d는 결과 타입이 입력 값에 따라 변하지 않고 항상 Type 3에 속하는 타입을 반환하기 때문이다
 
 \(c\) At least one of them has a dependent function type. \
 풀이 : false / 반환 타입이 인자에 의존하지 않기 때문이다
@@ -491,7 +491,7 @@ def q09d : Type 2 → Type 3 := fun x : Type 2 => x
 Given `α : Type` and `β : α → Type`, is the type `(a : α) → β a` a dependent
 function type? \
 풀이 : yes / 처음에는 α 타입에 속하는 입력 a에 관계 없이 항상 Type을 반환하므로 의존 함수가 아니라고 생각했으나 타입 β a는 입력 a에 의존하므로 의존함수이다 \
-예를 들어 α가 Nat이고 β가 fun (n : Nat) => List n이라고 해보면 a가 3일 때 β a는 List 3 타입이 되고 a가 5라면 List 5 타입이 되므로 입력값 a가 달라지면 결과 β a 타입도 달라지므로 의존 함수라고 판단했다
+예를 들어 α가 Nat이고 β가 fun (n : Nat) => Fin n이라고 해보면 a가 3일 때 β a는 Fin 3 타입이 되고 a가 5라면 Fin 5 타입이 되므로 입력값 a가 달라지면 결과 β a 타입도 달라지므로 의존 함수라고 판단했다
 
 ## Question 29
 
@@ -500,16 +500,32 @@ product type? \
 풀이 : yes / 첫 번째 값 a에 따라 두 번째 요소의 타입이 달라지기 때문이다 \
 예를 들어 아래의 코드와 같이 α, β를 정의했을 경우 a의 짝홀수 여부에 따라 데카르트 곱을 한 결과의 타입이 달라지는 것을 통해서 확인할 수 있다
 ```lean
+namespace Question29
+
 def α : Type := Nat
 
+namespace α
+
+instance instOfNat : OfNat α n where
+  ofNat := n
+
+instance : HMod α Nat Nat where
+  hMod := Nat.mod
+
+end α
+
 def β : α → Type :=
-  fun a => if a % 2 = 0 then Bool else String
+  fun a => if a % 2 = (0 : Nat) then Bool else String
+
+#check (a : α) × β a -- output: Type
+
+end Question29
 ```
 
 ## Question 30
 
 Given `α : Type` and `β : α → Type`, is the type `Σ (a : α), β a` a sigma type? \
-풀이 : yes / 첫 번째 값 a : α에 따라 두 번째 β a 반환 타입이 달라지므로 시그마 타입 == 의존적 함수 타입이다
+풀이 : yes / 첫 번째 값 a : α에 따라 두 번째 β a 반환 타입이 달라지므로 시그마 타입 == 의존곱 타입이다
 
 ## Question 31
 
@@ -520,12 +536,12 @@ same? \
 ## Question 32
 
 Is the type `(α : Type) → Prop` a dependent function type? \
-풀이 : no / 출력이 입력 값에 따라 *다른 타입*인 것이 아니라 어떤 α가 주어지더라도 반환되는 타입은 항상 Prop으로 동일하기 때문에 의존 함수 타입이 아니다 
+풀이 : no / 출력이 입력 값에 따라 *다른 타입*인 것이 아니라 어떤 α가 주어지더라도 그 타입은 항상 Prop으로 동일하기 때문에 의존 함수 타입이 아니다
 
 ## Question 33
 
 Is the type `(α : Type) × Prop` a dependent product type? \
-풀이 : no / 첫 번째 요소에 따라 두 번째 요소의 타입이 달라지는 것이 아니라 첫 번째 요소는 α : Type이고 두 번째 요소는 항상 Prop이므로 의존 곱 타입이 아니다
+풀이 : no / 첫 번째 요소에 따라 두 번째 요소의 타입이 달라지는 것이 아니라 첫 번째 요소는 α : Type이고 두 번째 요소는 항상 Prop에 속하므로 의존 곱 타입이 아니다
 
 ## Question 34
 
@@ -554,7 +570,6 @@ def f (α : Type u) (β : α → Type v) (a : α) (b : β a) : Σ (a : α), β a
   ⟨a, b⟩  -- sigma 타입의 값을 생성할 때 ⟨a, b⟩ 형식 사용
 
 end Question34
-
 ```
 
 ## Question 35

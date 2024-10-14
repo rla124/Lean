@@ -453,7 +453,11 @@ def Type.id : Type → Type := fun x : Type ↦ x
 ```
 
 \(a\) It is parametrically polymorphic. \
-풀이 : true / 여러 타입에 대해 같은 방식으로 동작한다 Type.id에 Nat, Bool, String, Char 유형 등을 매개변수로 넘겼을 때 속한 타입을 반환하는 동일한 로직을 수행한다 이는 입력 인자에 독립적으로 처리한다고 볼 수 있으므로 매개변수 다형성을 가지고 있다 
+의존 함수인지를 묻는 문제, 의존함수가 아니면 매개변수 다형적이 아니다
+
+풀이 : false
+
+기타 : 매개변수 다형성 연관 개념 - oop -> interface, 구현체, overload 
 
 \(b\) It is a dependent function. \
 풀이 : false / Type.id는 Type 0에 속하는 x가 무엇이든 그 타입이 입력값에 의존하지 않기 때문이다
@@ -493,6 +497,8 @@ function type? \
 풀이 : yes / 처음에는 α 타입에 속하는 입력 a에 관계 없이 항상 Type을 반환하므로 의존 함수가 아니라고 생각했으나 타입 β a는 입력 a에 의존하므로 의존함수이다 \
 예를 들어 α가 Nat이고 β가 fun (n : Nat) => Fin n이라고 해보면 a가 3일 때 β a는 Fin 3 타입이 되고 a가 5라면 Fin 5 타입이 되므로 입력값 a가 달라지면 결과 β a 타입도 달라지므로 의존 함수라고 판단했다
 
+기타 : List (유형 자체라 뒤에 상수가 올 수 없음) vs Fin (0 이상 x 미만의 범위)
+
 ## Question 29
 
 Given `α : Type` and `β : α → Type`, is the type `(a : α) × β a` a dependent
@@ -531,7 +537,7 @@ Given `α : Type` and `β : α → Type`, is the type `Σ (a : α), β a` a sigm
 
 Are the types of [Question 29](#question-29) and [Question 30](#question-30) the
 same? \
-풀이 : no / 전자의 경우 의존적 곱 타입으로 값이 고장된 쌍이지만 후자는 시그마 타입으로 더 범용적인 범위에서 의존적 곱과 의존적 합 타입을 포괄하는 표현이기 때문이다
+풀이 : yes / 의존곱 == 시그마 타입
 
 ## Question 32
 
@@ -614,5 +620,6 @@ then check the value of each expression.
 
 Give an example of a function that takes one or more implicit arguments.
 ```lean
-def List.cons {α : Type u} (a : α) (as : List α)
+def q38 : {α : Type u} → α → List α → List α :=
+  fun {α : Type u} (x1 : α) (x2 : List α) => x1 :: x2
 ```
